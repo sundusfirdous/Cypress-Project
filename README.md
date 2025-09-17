@@ -80,19 +80,19 @@ Cypress-BDD-OrangeHRM/
    ```bash
    git clone <your-repo-url>
    cd Cypress-BDD-OrangeHRM
-   
+   ```
 2.Install dependencies
 ```bash
    npm install
-
+```
 3.Run Cypress in interactive mode
 ```bash
    npx cypress open
-   
+  ``` 
 4. Run tests in headless mode
 ```bash
    npx cypress run
-
+```
 
 
    git clone <your-repo-url>
