@@ -58,8 +58,8 @@ Cypress-BDD-OrangeHRM/
 
 1. Clone the repo  
    ```bash
-
-
+     git clone <your-repo-url>
+     cd Cypress-BDD-OrangeHRM
 ---
 
 ## 🔹 Key Components
@@ -95,5 +95,4 @@ Cypress-BDD-OrangeHRM/
 ```
 
 
-   git clone <your-repo-url>
-   cd Cypress-BDD-OrangeHRM
+ 
