@@ -1,46 +1,40 @@
 const { defineConfig } = require("cypress");
+const createBundler = require("@bahmutov/cypress-esbuild-preprocessor");
+const addCucumberPreprocessorPlugin =
+  require("@badeball/cypress-cucumber-preprocessor").addCucumberPreprocessorPlugin;
+const createEsbuildPlugin =
+  require("@badeball/cypress-cucumber-preprocessor/esbuild").createEsbuildPlugin;
 
 module.exports = defineConfig({
   e2e: {
-    baseUrl: null,
-    chromeWebSecurity: true,
-    defaultCommandTimeout: 4000,
-    downloadsFolder: "cypress/downloads",
-    env: {},
-    excludeSpecPattern: "*.hot-update.js",
-    execTimeout: 60000,
-    fixturesFolder: "cypress/fixtures",
-    includeShadowDom: false,
-    numTestsKeptInMemory: 50,
-    pageLoadTimeout: 60000,
-    reporter: "spec",
-    requestTimeout: 5000,
-    responseTimeout: 30000,
-    retries: {
-      runMode: 0,
-      openMode: 0,
-    },
-    screenshotOnRunFailure: true,
-    screenshotsFolder: "cypress/screenshots",
-    scrollBehavior: "top",
-    slowTestThreshold: 10000,
-    specPattern: "cypress/e2e/**/*.cy.{js,jsx,ts,tsx}",
-    supportFile: "cypress/support/e2e.{js,jsx,ts,tsx}",
+    specPattern: "cypress/e2e/features/**/*.feature",
+    supportFile: "cypress/support/e2e.js",
     taskTimeout: 60000,
-    testIsolation: true,
-    trashAssetsBeforeRuns: true,
-    video: false,
-    videoCompression: false,
-    videosFolder: "cypress/videos",
-    viewportHeight: 660,
-    viewportWidth: 1000,
-    waitForAnimations: true,
-    watchForFileChanges: true,
 
-    // ✅ setupNodeEvents is ONLY for event listeners & plugins
-    setupNodeEvents(on, config) {
-      // implement node event listeners here if needed
+    cucumberJson: {
+      generate: true,
+      outputFolder: "cypress/cucumber-json",
+      filePrefix: "",
+      fileSuffix: ".cucumber",
+    },
+
+    async setupNodeEvents(on, config) {
+      const bundler = createBundler({
+        plugins: [createEsbuildPlugin(config)],
+      });
+
+      on("file:preprocessor", bundler);
+
+      await addCucumberPreprocessorPlugin(on, config);
+
       return config;
     },
+    cucumberJson: {
+  generate: true,
+  outputFolder: "cypress/cucumber-json",
+  filePrefix: "",
+  fileSuffix: ".cucumber",
+},
+
   },
 });

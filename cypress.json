@@ -1,3 +1,6 @@
 {
-    "experimentalSessionAndOrigin": true
+    "experimentalSessionAndOrigin": true,
+    
+    "testFiles": "**/*.feature"
+
 }
